@@ -30,7 +30,7 @@ Modules:
 ### Planned Support
 Controllers:
   - CP290
-  - CM17A
+  - CM17A ~oh dear god the protocol document is disgusting http://web.archive.org/web/20001019145819id_/http://software.x10.com/pub/manuals/cm17a_protocol.txt~~
 
 Modules:
   - Wall Modules
