@@ -6,11 +6,16 @@ import java.util.Calendar;
 import com.fazecast.jSerialComm.SerialPort;
 import com.flaremicro.homeautomation.xoto.enums.HomeLetter;
 
+/**
+ * CM11A controller class.
+ * Contains functions specific to only the CM11A controller.
+ * 
+ * @author Vulpovile
+ */
 public class CM11AController extends SerialController{
 
 	public CM11AController(SerialPort serialPort) {
 		super(serialPort);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

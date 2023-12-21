@@ -8,11 +8,35 @@ import com.flaremicro.homeautomation.xoto.enums.Function;
 import com.flaremicro.homeautomation.xoto.enums.HomeLetter;
 import com.flaremicro.homeautomation.xoto.module.X10Module;
 
+/**
+ * Simple Operation class, used to trigger single functions (such as Brighen, Dim, but not any combination), on one or more modules.
+ * @author Vulpovile
+ *
+ */
 public class SimpleOperation extends Operation {
 	private final X10Module[] modules;
 	private final Function function;
 	private final int dimSteps;
+	
+	/**
+	 * Constructor with no dimming information.
+	 * 
+	 * @param function
+	 * @param modules
+	 * @throws UnsupportedFunctionException
+	 */
+	public SimpleOperation(Function function, X10Module... modules) throws UnsupportedFunctionException {
+		this(function, 0, modules);
+	}
 
+	/**
+	 * Constructor with dimming information.
+	 * 
+	 * @param function
+	 * @param dimSteps
+	 * @param modules
+	 * @throws UnsupportedFunctionException
+	 */
 	public SimpleOperation(Function function, int dimSteps, X10Module... modules) throws UnsupportedFunctionException {
 		this.function = function;
 		this.modules = modules;
@@ -25,6 +49,14 @@ public class SimpleOperation extends Operation {
 		Arrays.sort(this.modules);
 	}
 	
+	/**
+	 * Use the modules sorted by home letter to build an address set of one home letter and then execute the function.
+	 * Increment home letter for the next home and repeat.
+	 * 
+	 * The controllers do not support an address set with multiple different home letters, so this must be done this way.
+	 * 
+	 * @inheritDoc
+	 */
 	public void performOperation(SerialController serialController) throws IOException, InterruptedException
 	{
 		int currModuleIndex = 0;

@@ -13,6 +13,15 @@ import com.flaremicro.homeautomation.xoto.enums.Function;
 import com.flaremicro.homeautomation.xoto.enums.HomeLetter;
 import com.flaremicro.homeautomation.xoto.operation.Operation;
 
+/**
+ * Abstract class for dealing with most serial-based controllers. CP290 and CM17A may differ, however, but they are generally outliers.
+ * Runs as a thread to process input as well.
+ * 
+ * A base class for all controllers may be necessary when expanding to different types (i.e. USB with CM15A)
+ * 
+ * @author Vulpovile
+ *
+ */
 public abstract class SerialController implements Runnable {
 
 	private boolean running = false;
@@ -21,10 +30,25 @@ public abstract class SerialController implements Runnable {
 	private final Queue<Operation> operations = new ConcurrentLinkedQueue<Operation>();
 	
 
+	/**
+	 * Utilized by the controller to determine what the address incoming is. 
+	 * One STATE_CHANGE signal may not have all the information in the buffer yet, 
+	 * so best to keep these until no longer required.
+	 */
 	protected ArrayList<Integer> addresses = new ArrayList<Integer>();
+	
+	/**
+	 * Used to determine which address got a dim/bright signal
+	 */
 	protected ArrayList<Integer> lastAddresses = new ArrayList<Integer>();
 
+	/**
+	 * Serial port input
+	 */
 	protected InputStream is;
+	/**
+	 * Serial port output
+	 */
 	protected OutputStream os;
 	protected SerialPort serialPort;
 
@@ -97,6 +121,15 @@ public abstract class SerialController implements Runnable {
 		operations.add(operation);
 	}
 
+	/**
+	 * Waits for a specific checksum, and returns true if the checksum is equal.
+	 * 
+	 * @param checksum
+	 * @param timeout
+	 * @return checksum equal
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public boolean waitForChecksum(int checksum, int timeout) throws IOException, InterruptedException {
 		long timeStarted = System.currentTimeMillis() + timeout;
 		while (running)
@@ -123,10 +156,26 @@ public abstract class SerialController implements Runnable {
 		return false;
 	}
 
+	/**
+	 * Waits for the INTERFACE_RDY signal 
+	 * (currently waits for any signal, TODO improve this)
+	 * 
+	 * @param timeout
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void waitForReady(int timeout) throws IOException, InterruptedException {
 		waitForChecksum(INTERFACE_RDY, timeout);
 	}
 
+	/**
+	 * Waits for the next byte and returns once read, wait 500ms on no input.
+	 * 
+	 * @param timeout
+	 * @return
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	protected int waitForByte(int timeout) throws IOException, InterruptedException {
 		long timeStarted = System.currentTimeMillis() + timeout;
 		int recievedByte = -1;
@@ -148,6 +197,16 @@ public abstract class SerialController implements Runnable {
 		return -1;
 	}
 
+	/**
+	 * Tell the controller to address the specific home and device number.
+	 * 
+	 * Currently, a failed address call with an invalid checksum can cause an infinite loop. TODO improve
+	 * 
+	 * @param homeLetter
+	 * @param deviceNumber
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void address(HomeLetter homeLetter, DeviceNumber deviceNumber) throws IOException, InterruptedException {
 		SerialHeader serialHeader = new SerialHeader(0, SerialHeader.TYPE_ADDRESS, SerialHeader.TRANSMISSION_STANDARD);
 		int addressByte = homeLetter.opcode | deviceNumber.opcode;
@@ -169,6 +228,16 @@ public abstract class SerialController implements Runnable {
 		addresses.add(addressByte);
 	}
 
+	/**
+	 * Tell the controller to perform a function. Home letter is likely unnecessary, but this is how X10 works, so this is how the call is implemented.
+	 * 
+	 * 
+	 * @param homeLetter
+	 * @param dimSteps - Not useful for anything other than Bright/Dim functions
+	 * @param function
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void perform(HomeLetter homeLetter, int dimSteps, Function function) throws IOException, InterruptedException {
 		SerialHeader serialHeader = new SerialHeader(dimSteps, SerialHeader.TYPE_FUNCTION, SerialHeader.TRANSMISSION_STANDARD);
 		int functionByte = homeLetter.opcode | function.opcode;
@@ -192,6 +261,15 @@ public abstract class SerialController implements Runnable {
 		addresses.clear();
 	}
 
-	public abstract void handleByte(int read) throws InterruptedException, IOException;
+	/**
+	 * Handles a byte input from the serial controller. Inputs and their handling may differ, so this function is abstract.
+	 * 
+	 * TODO see if CM11A and CM10A have anything in common and move here instead 
+	 * 
+	 * @param read
+	 * @throws InterruptedException
+	 * @throws IOException
+	 */
+	protected abstract void handleByte(int read) throws InterruptedException, IOException;
 
 }

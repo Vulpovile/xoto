@@ -5,6 +5,11 @@ import com.flaremicro.homeautomation.xoto.enums.Function;
 import com.flaremicro.homeautomation.xoto.enums.HomeLetter;
 import com.flaremicro.homeautomation.xoto.module.X10Module;
 
+/**
+ * Appliance module container class
+ * @author Vulpovile
+ *
+ */
 public class ApplicanceModule extends X10Module {
 
 	public ApplicanceModule(HomeLetter homeNumber, DeviceNumber deviceNumber) {

@@ -6,6 +6,12 @@ import com.flaremicro.homeautomation.xoto.enums.DeviceNumber;
 import com.flaremicro.homeautomation.xoto.enums.Function;
 import com.flaremicro.homeautomation.xoto.enums.HomeLetter;
 
+/**
+ * CM10A controller class. (AKA IBM Home Director Controller)
+ * Contains functions specific to only the CM10A controller.
+ * 
+ * @author Vulpovile
+ */
 public class CM10AController extends SerialController {
 
 	private static final int POWER_FAIL = 0xa5;
