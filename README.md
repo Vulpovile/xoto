@@ -18,13 +18,13 @@ These don't necessarly work yet (re: disclaimer), but have code for functioning
 
 ### Currently Supported
 Controllers:
-	- CM10A
-		- IBM Home Director 2-Way Serial Interface Model 75H8381
-	- CM11A
+  - CM10A
+    - IBM Home Director 2-Way Serial Interface Model 75H8381
+  - CM11A
 Modules:
-	- Lamp Modules
-	- Appliance Modules
-	- RF Transmitter Modules
+  - Lamp Modules
+  - Appliance Modules
+  - RF Transmitter Modules (Using Appliance Module code)
 
 ### Planned Support
 Controllers:
