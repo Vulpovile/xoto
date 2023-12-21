@@ -9,12 +9,12 @@ The actual code to trigger stuff is *there*, but nothing actually uses it yet.
 ## Build Requirements
 You require:
 1. Java 6+
-2. Eclise (Or your favorite IDE)
+2. Eclipse (Or your favorite IDE)
 3. A copy of jSerialComm https://fazecast.github.io/jSerialComm/
 4. Knowledge
 
 ## Module Support
-These don't necessarly work yet (re: disclaimer), but have code for functioning
+These don't necessarily work yet (re: disclaimer), but have code for functioning
 
 ### Currently Supported
 Controllers:
@@ -37,4 +37,4 @@ Modules:
 
 ### Why is my module not listed?
 I can only support what I own, or at the very least have access too. I do not own the CM15A module for instance.
-I also have not listed everything I have recieved yet as I need to document everything.
+I also have not listed everything I have received yet as I need to document everything.
