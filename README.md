@@ -1,6 +1,6 @@
 # Xoto X-10 Home Automation Suite
 Xoto (for X-Auto or X-10 Automation, can be pronounced Zoto) is an Automation suite for X-10 devices.
-Currently supports the CM11A and CM10A (Also known as the IBM Home Director (not to beconfused with the 80's CP290)) interfaces, with more on the way
+Currently supports the CM11A and CM10A (Also known as the IBM Home Director (not to be confused with the 80's CP290)) interfaces, with more on the way
 
 ## THIS SOFTWARE IS NOT COMPLETE
 It's like, very, very not complete, it doesn't even actually trigger anything yet. This will change soon, and this disclaimer will to!
