@@ -21,6 +21,7 @@ Controllers:
   - CM10A
     - IBM Home Director 2-Way Serial Interface Model 75H8381
   - CM11A
+
 Modules:
   - Lamp Modules
   - Appliance Modules
@@ -28,10 +29,11 @@ Modules:
 
 ### Planned Support
 Controllers:
-	- CP290
-	- CM17A
+  - CP290
+  - CM17A
+
 Modules:
-	- Wall Modules
+  - Wall Modules
 
 ### Why is my module not listed?
 I can only support what I own, or at the very least have access too. I do not own the CM15A module for instance.
