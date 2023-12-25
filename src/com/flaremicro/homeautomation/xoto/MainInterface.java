@@ -24,7 +24,11 @@ import javax.swing.JToolBar;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.JButton;
-
+/**
+ * 
+ * @author Vulpovile
+ *
+ */
 public class MainInterface extends JFrame implements ActionListener {
 
 	/**
